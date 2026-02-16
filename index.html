@@ -154,29 +154,14 @@
         </div>
       </section>
 
-      <section class="contact" id="contact">
+      <section class="feedback" id="contact">
         <div class="section-header">
           <h3>Feedback</h3>
-          <p>Let’s build something great together.</p>
+          <p>Share your thoughts and help me improve.</p>
         </div>
-        <div class="contact-grid">
-          <form class="contact-form">
-            <label>
-              Name
-              <input type="text" placeholder="Your name" required />
-            </label>
-            <label>
-              Email
-              <input type="email" placeholder="you@email.com" required />
-            </label>
-            <label>
-              Message
-              <textarea rows="5" placeholder="Tell me about your project..."></textarea>
-            </label>
-            <button class="btn primary" type="submit">Send Message</button>
-          </form>
-          <div class="contact-details">
-            <h4>Get in touch</h4>
+        <div class="feedback-grid">
+          <div class="feedback-info">
+            <h4>Let’s connect</h4>
             <p>Email me at <a href="mailto:hello@sarahjohnson.com">hello@sarahjohnson.com</a></p>
             <div class="social-links">
               <a href="#" aria-label="LinkedIn">LinkedIn</a>
@@ -184,7 +169,23 @@
               <a href="#" aria-label="GitHub">GitHub</a>
             </div>
           </div>
+          <form class="feedback-form" id="feedback-form">
+            <label>
+              Name
+              <input type="text" name="name" placeholder="Your name" required />
+            </label>
+            <label>
+              Feedback message
+              <textarea name="message" rows="4" placeholder="Share your feedback..." required></textarea>
+            </label>
+            <label>
+              Rating (1 to 5)
+              <input type="number" name="rating" min="1" max="5" placeholder="5" required />
+            </label>
+            <button class="btn primary" type="submit">Submit</button>
+          </form>
         </div>
+        <div class="feedback-list" id="feedback-list"></div>
       </section>
     </main>
 
@@ -197,6 +198,7 @@
       </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
       const navToggle = document.querySelector('.nav-toggle');
       const navLinks = document.querySelector('.nav-links');
@@ -205,6 +207,102 @@
         navLinks.classList.toggle('open');
         navToggle.classList.toggle('open');
       });
+
+      const supabaseUrl = 'YOUR_SUPABASE_URL';
+      const supabaseKey = 'YOUR_SUPABASE_ANON_KEY';
+      const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+      const feedbackForm = document.getElementById('feedback-form');
+      const feedbackList = document.getElementById('feedback-list');
+
+      const formatTimestamp = (value) => {
+        const date = new Date(value);
+        return date.toLocaleString(undefined, {
+          dateStyle: 'medium',
+          timeStyle: 'short',
+        });
+      };
+
+      const renderStars = (rating) => {
+        const full = '★'.repeat(rating);
+        const empty = '☆'.repeat(5 - rating);
+        return `${full}${empty}`;
+      };
+
+      const createFeedbackCard = (item) => {
+        const card = document.createElement('article');
+        card.className = 'feedback-card';
+        card.innerHTML = `
+          <div>
+            <h4>${item.name}</h4>
+            <p>${item.message}</p>
+          </div>
+          <div class="feedback-meta">
+            <span class="rating">${renderStars(item.rating)}</span>
+            <span class="timestamp">${formatTimestamp(item.created_at)}</span>
+          </div>
+        `;
+        return card;
+      };
+
+      const prependFeedback = (item) => {
+        const card = createFeedbackCard(item);
+        feedbackList.prepend(card);
+      };
+
+      const loadFeedback = async () => {
+        const { data, error } = await supabaseClient
+          .from('feedback')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          feedbackList.innerHTML = '<p class="feedback-error">Unable to load feedback right now.</p>';
+          return;
+        }
+
+        feedbackList.innerHTML = '';
+        data.forEach((item) => {
+          feedbackList.appendChild(createFeedbackCard(item));
+        });
+      };
+
+      feedbackForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const formData = new FormData(feedbackForm);
+        const payload = {
+          name: formData.get('name'),
+          message: formData.get('message'),
+          rating: Number(formData.get('rating')),
+        };
+
+        const { data, error } = await supabaseClient
+          .from('feedback')
+          .insert(payload)
+          .select()
+          .single();
+
+        if (error) {
+          alert('Unable to submit feedback. Please try again.');
+          return;
+        }
+
+        feedbackForm.reset();
+        prependFeedback(data);
+      });
+
+      supabaseClient
+        .channel('feedback-changes')
+        .on(
+          'postgres_changes',
+          { event: 'INSERT', schema: 'public', table: 'feedback' },
+          (payload) => {
+            prependFeedback(payload.new);
+          }
+        )
+        .subscribe();
+
+      loadFeedback();
     </script>
   </body>
 </html>
