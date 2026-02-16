@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sarah Johnson | Web Developer & Designer</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <div class="logo">Sarah Johnson</div>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-content">
+          <p class="eyebrow">Welcome</p>
+          <h1>Hi, I’m Sarah Johnson</h1>
+          <h2>Web Developer &amp; Designer</h2>
+          <p class="hero-description">
+            I create beautiful, functional websites that help businesses grow.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#projects">View My Work</a>
+            <a class="btn secondary" href="#contact">Get In Touch</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <div class="photo-placeholder">
+            <span>Professional Photo</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="about" id="about">
+        <div class="section-header">
+          <h3>About Me</h3>
+          <p>Passionate about crafting engaging digital experiences.</p>
+        </div>
+        <div class="about-grid">
+          <div class="about-text">
+            <p>
+              I’m a web developer and designer who loves blending clean aesthetics
+              with thoughtful functionality. I’ve spent the last few years
+              helping startups and small businesses bring their brands to life
+              online.
+            </p>
+            <p>
+              When I’m not coding, you’ll find me exploring new cities, capturing
+              moments through my lens, or sketching UI ideas over a warm cup of
+              coffee.
+            </p>
+          </div>
+          <div class="about-list">
+            <h4>Things I enjoy</h4>
+            <ul>
+              <li>Coffee ☕</li>
+              <li>Photography 📸</li>
+              <li>Travel ✈️</li>
+              <li>Coding 💻</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="projects" id="projects">
+        <div class="section-header">
+          <h3>My Projects</h3>
+          <p>Recent work that blends strategy, design, and development.</p>
+        </div>
+        <div class="projects-grid">
+          <article class="project-card">
+            <div class="project-image">E-commerce Store</div>
+            <div class="project-body">
+              <h4>E-commerce Store</h4>
+              <p>
+                A modern storefront with smooth checkout flows and optimized
+                performance.
+              </p>
+              <a class="btn text" href="#">View Project</a>
+            </div>
+          </article>
+          <article class="project-card">
+            <div class="project-image">Restaurant Website</div>
+            <div class="project-body">
+              <h4>Restaurant Website</h4>
+              <p>
+                A vibrant site highlighting menus, reservations, and a bold
+                brand story.
+              </p>
+              <a class="btn text" href="#">View Project</a>
+            </div>
+          </article>
+          <article class="project-card">
+            <div class="project-image">Portfolio Blog</div>
+            <div class="project-body">
+              <h4>Portfolio Blog</h4>
+              <p>
+                A sleek personal blog with dynamic layouts and a focus on
+                storytelling.
+              </p>
+              <a class="btn text" href="#">View Project</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="skills" id="skills">
+        <div class="section-header">
+          <h3>Skills &amp; Technologies</h3>
+          <p>Tools I use to build delightful digital experiences.</p>
+        </div>
+        <div class="skills-group">
+          <h4>Frontend</h4>
+          <div class="skills-list">
+            <span class="skill">HTML</span>
+            <span class="skill">CSS</span>
+            <span class="skill">JavaScript</span>
+            <span class="skill">React</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <h4>Design Tools</h4>
+          <div class="skills-list">
+            <span class="skill">Figma</span>
+            <span class="skill">Photoshop</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <h4>Other</h4>
+          <div class="skills-list">
+            <span class="skill">WordPress</span>
+            <span class="skill">Git</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact" id="contact">
+        <div class="section-header">
+          <h3>Feedback</h3>
+          <p>Let’s build something great together.</p>
+        </div>
+        <div class="contact-grid">
+          <form class="contact-form">
+            <label>
+              Name
+              <input type="text" placeholder="Your name" required />
+            </label>
+            <label>
+              Email
+              <input type="email" placeholder="you@email.com" required />
+            </label>
+            <label>
+              Message
+              <textarea rows="5" placeholder="Tell me about your project..."></textarea>
+            </label>
+            <button class="btn primary" type="submit">Send Message</button>
+          </form>
+          <div class="contact-details">
+            <h4>Get in touch</h4>
+            <p>Email me at <a href="mailto:hello@sarahjohnson.com">hello@sarahjohnson.com</a></p>
+            <div class="social-links">
+              <a href="#" aria-label="LinkedIn">LinkedIn</a>
+              <a href="#" aria-label="Dribbble">Dribbble</a>
+              <a href="#" aria-label="GitHub">GitHub</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>© 2026 Sarah Johnson. All rights reserved.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="Twitter">TW</a>
+        <a href="#" aria-label="Behance">BE</a>
+      </div>
+    </footer>
+
+    <script>
+      const navToggle = document.querySelector('.nav-toggle');
+      const navLinks = document.querySelector('.nav-links');
+
+      navToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+        navToggle.classList.toggle('open');
+      });
+    </script>
+  </body>
+</html>
